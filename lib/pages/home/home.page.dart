@@ -1,3 +1,4 @@
+import 'package:app_rich_and_morty/pages/home/widgets/list_view_cards.widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -48,7 +49,16 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              Icon(Icons.list)
+              SizedBox(height: 20),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: Icon(Icons.grid_view, color: Colors.white, size: 30),
+                ),
+              ),
+              SizedBox(height: 20),
+              Expanded(child: ListViewCards()),
             ],
           ),
         ),
@@ -57,5 +67,4 @@ class HomePage extends StatelessWidget {
   }
 }
 
-
-// TODO: usar o Icons.grid_view
+// TODO: usar o Icons.list
