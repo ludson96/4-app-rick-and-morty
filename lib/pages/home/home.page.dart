@@ -1,8 +1,22 @@
+import 'package:app_rich_and_morty/pages/home/store/home.store.dart';
 import 'package:app_rich_and_morty/pages/home/widgets/list_view_cards.widget.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  final store = HomeStore();
+
+  @override
+  void initState() {
+    super.initState();
+    store.loadCharacters();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +72,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20),
-              Expanded(child: ListViewCards()),
+              Expanded(child: ListViewCards(store: store)),
             ],
           ),
         ),
