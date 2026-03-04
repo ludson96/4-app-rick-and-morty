@@ -15,10 +15,18 @@ class ListViewCards extends StatelessWidget {
 
         return Card(
           elevation: 10,
-          child: Row(
-            children: [
-              Image.asset(character.image, height: 200, width: 100),
-            ],
+          child: SizedBox(
+            height: 150,
+            child: Row(
+              children: [
+                Image.network(
+                  character.image,
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            ),
           ),
         );
       },

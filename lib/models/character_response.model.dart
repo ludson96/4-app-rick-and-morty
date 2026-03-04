@@ -9,7 +9,7 @@ class CharacterResponse {
 
   factory CharacterResponse.fromMap(Map<String, dynamic> data) {
     return CharacterResponse(
-      info: data["info"],
+      info: RMInfo.fromMap(data["info"]),
       results: (data["results"] as List)
           .map((character) => Character.fromMap(character))
           .toList(),

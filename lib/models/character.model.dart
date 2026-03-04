@@ -41,9 +41,9 @@ class Character {
       origin: OriginType.fromMap(data["origin"]),
       location: LocationType.fromMap(data["location"]),
       image: data["image"],
-      episode: data["episode"],
+      episode: List<String>.from(data["episode"]),
       url: data["url"],
-      created: data["created"],
+      created: DateTime.parse(data["created"]),
     );
   }
 }
