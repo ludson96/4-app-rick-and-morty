@@ -1,15 +1,16 @@
 import 'package:app_rich_and_morty/models/character.model.dart';
 import 'package:app_rich_and_morty/services/rm_api.service.dart';
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 
 // Include generated file
 part 'home.store.g.dart';
 
 // This is the class used by rest of your codebase
-class HomeStore = _HomeStore with _$HomeStore;
+class HomeStore = HomeStoreBase with _$HomeStore;
 
 // The store-class
-abstract class _HomeStore with Store {
+abstract class HomeStoreBase with Store {
   final _service = RMApiService();
 
   int page = 1;
@@ -30,5 +31,15 @@ abstract class _HomeStore with Store {
     character.addAll(characterResponse.results);
 
     isLoading = false;
+  }
+
+  @action
+  void updateCharacterColor({required int characterId, required Color color}) {
+    final indexCharacter = character.indexWhere(
+      (character) => character.id == characterId,
+    );
+    character[indexCharacter] = character[indexCharacter].copyWith(
+      color: color,
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:app_rich_and_morty/pages/home/store/home.store.dart';
+import 'package:app_rich_and_morty/pages/home/widgets/grid_view_cards.widget.dart';
 import 'package:app_rich_and_morty/pages/home/widgets/list_view_cards.widget.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final store = HomeStore();
+  bool isGrid = false;
 
   @override
   void initState() {
@@ -67,12 +69,24 @@ class _HomePageState extends State<HomePage> {
               Align(
                 alignment: Alignment.centerRight,
                 child: IconButton(
-                  onPressed: () {},
-                  icon: Icon(Icons.grid_view, color: Colors.white, size: 30),
+                  onPressed: () {
+                    setState(() {
+                      isGrid = !isGrid;
+                    });
+                  },
+                  icon: Icon(
+                    isGrid ? Icons.list : Icons.grid_view,
+                    color: Colors.white,
+                    size: 30,
+                  ),
                 ),
               ),
               SizedBox(height: 20),
-              Expanded(child: ListViewCards(store: store)),
+              Expanded(
+                child: isGrid
+                    ? GridViewCards(store: store)
+                    : ListViewCards(store: store),
+              ),
             ],
           ),
         ),
@@ -80,5 +94,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// TODO: usar o Icons.list

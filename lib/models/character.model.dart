@@ -1,5 +1,6 @@
 import 'package:app_rich_and_morty/models/location_type.model.dart';
 import 'package:app_rich_and_morty/models/origin_type.model.dart';
+import 'package:flutter/material.dart';
 
 class Character {
   final int id;
@@ -14,6 +15,7 @@ class Character {
   final List<String> episode;
   final String url;
   final DateTime created;
+  final Color color;
 
   Character({
     required this.id,
@@ -28,6 +30,7 @@ class Character {
     required this.episode,
     required this.url,
     required this.created,
+    this.color = Colors.white,
   });
 
   factory Character.fromMap(Map<String, dynamic> data) {
@@ -44,6 +47,38 @@ class Character {
       episode: List<String>.from(data["episode"]),
       url: data["url"],
       created: DateTime.parse(data["created"]),
+    );
+  }
+
+  Character copyWith({
+    int? id,
+    String? name,
+    String? status,
+    String? species,
+    String? type,
+    String? gender,
+    OriginType? origin,
+    LocationType? location,
+    String? image,
+    List<String>? episode,
+    String? url,
+    DateTime? created,
+    Color? color,
+  }) {
+    return Character(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      status: status ?? this.status,
+      species: species ?? this.species,
+      type: type ?? this.type,
+      gender: gender ?? this.gender,
+      origin: origin ?? this.origin,
+      location: location ?? this.location,
+      image: image ?? this.image,
+      episode: episode ?? this.episode,
+      url: url ?? this.url,
+      created: created ?? this.created,
+      color: color ?? this.color,
     );
   }
 }
