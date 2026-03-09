@@ -2,6 +2,7 @@ import 'package:app_rich_and_morty/pages/home/store/home.store.dart';
 import 'package:app_rich_and_morty/pages/home/widgets/grid_view_cards.widget.dart';
 import 'package:app_rich_and_morty/pages/home/widgets/list_view_cards.widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -99,15 +100,34 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
               Expanded(
-                child: isGrid
-                    ? GridViewCards(
-                        store: store,
-                        scrollController: scrollController,
-                      )
-                    : ListViewCards(
-                        store: store,
-                        scrollController: scrollController,
-                      ),
+                child: Observer(
+                  builder: (_) {
+                    if (store.isLoading && store.character.isEmpty) {
+                      return const Center(
+                        child: CircularProgressIndicator(color: Colors.white),
+                      );
+                    }
+                    return isGrid
+                        ? GridViewCards(
+                            store: store,
+                            scrollController: scrollController,
+                          )
+                        : ListViewCards(
+                            store: store,
+                            scrollController: scrollController,
+                          );
+                  },
+                ),
+              ),
+              Observer(
+                builder: (_) {
+                  return store.isLoading && store.character.isNotEmpty
+                      ? const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: CircularProgressIndicator(color: Colors.white),
+                        )
+                      : const SizedBox.shrink();
+                },
               ),
             ],
           ),
