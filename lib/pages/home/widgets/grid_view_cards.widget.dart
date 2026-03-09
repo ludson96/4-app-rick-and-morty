@@ -25,9 +25,9 @@ class GridViewCards extends StatelessWidget {
             crossAxisSpacing: 2,
             childAspectRatio: 0.70,
           ),
-          itemCount: store.character.length,
+          itemCount: store.filteredCharacters.length,
           itemBuilder: (ctx, index) {
-            final character = store.character[index];
+            final character = store.filteredCharacters[index];
             return CharacterCard(
               store: store,
               character: character,

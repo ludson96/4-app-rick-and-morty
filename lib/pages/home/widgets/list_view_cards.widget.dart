@@ -19,9 +19,9 @@ class ListViewCards extends StatelessWidget {
       builder: (_) {
         return ListView.builder(
           controller: scrollController,
-          itemCount: store.character.length,
+          itemCount: store.filteredCharacters.length,
           itemBuilder: (ctx, index) {
-            final character = store.character[index];
+            final character = store.filteredCharacters[index];
             return CharacterCard(store: store, character: character);
           },
         );

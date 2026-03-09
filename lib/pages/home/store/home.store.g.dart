@@ -9,8 +9,17 @@ part of 'home.store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$HomeStore on HomeStoreBase, Store {
+  Computed<List<Character>>? _$filteredCharactersComputed;
+
+  @override
+  List<Character> get filteredCharacters =>
+      (_$filteredCharactersComputed ??= Computed<List<Character>>(
+        () => super.filteredCharacters,
+        name: 'HomeStoreBase.filteredCharacters',
+      )).value;
+
   late final _$isLoadingAtom = Atom(
-    name: '_HomeStore.isLoading',
+    name: 'HomeStoreBase.isLoading',
     context: context,
   );
 
@@ -28,7 +37,7 @@ mixin _$HomeStore on HomeStoreBase, Store {
   }
 
   late final _$characterAtom = Atom(
-    name: '_HomeStore.character',
+    name: 'HomeStoreBase.character',
     context: context,
   );
 
@@ -45,8 +54,26 @@ mixin _$HomeStore on HomeStoreBase, Store {
     });
   }
 
+  late final _$searchAtom = Atom(
+    name: 'HomeStoreBase.search',
+    context: context,
+  );
+
+  @override
+  String? get search {
+    _$searchAtom.reportRead();
+    return super.search;
+  }
+
+  @override
+  set search(String? value) {
+    _$searchAtom.reportWrite(value, super.search, () {
+      super.search = value;
+    });
+  }
+
   late final _$loadCharactersAsyncAction = AsyncAction(
-    '_HomeStore.loadCharacters',
+    'HomeStoreBase.loadCharacters',
     context: context,
   );
 
@@ -55,11 +82,42 @@ mixin _$HomeStore on HomeStoreBase, Store {
     return _$loadCharactersAsyncAction.run(() => super.loadCharacters());
   }
 
+  late final _$HomeStoreBaseActionController = ActionController(
+    name: 'HomeStoreBase',
+    context: context,
+  );
+
+  @override
+  void setSearch(String? text) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+      name: 'HomeStoreBase.setSearch',
+    );
+    try {
+      return super.setSearch(text);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void updateCharacterColor({required int characterId, required Color color}) {
+    final _$actionInfo = _$HomeStoreBaseActionController.startAction(
+      name: 'HomeStoreBase.updateCharacterColor',
+    );
+    try {
+      return super.updateCharacterColor(characterId: characterId, color: color);
+    } finally {
+      _$HomeStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 isLoading: ${isLoading},
-character: ${character}
+character: ${character},
+search: ${search},
+filteredCharacters: ${filteredCharacters}
     ''';
   }
 }

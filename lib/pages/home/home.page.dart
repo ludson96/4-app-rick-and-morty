@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                onChanged: store.setSearch,
               ),
               SizedBox(height: 20),
               Align(
