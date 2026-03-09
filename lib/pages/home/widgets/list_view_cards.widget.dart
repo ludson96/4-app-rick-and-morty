@@ -5,14 +5,20 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 class ListViewCards extends StatelessWidget {
   final HomeStore store;
+  final ScrollController scrollController;
 
-  const ListViewCards({super.key, required this.store});
+  const ListViewCards({
+    super.key,
+    required this.store,
+    required this.scrollController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
         return ListView.builder(
+          controller: scrollController,
           itemCount: store.character.length,
           itemBuilder: (ctx, index) {
             final character = store.character[index];

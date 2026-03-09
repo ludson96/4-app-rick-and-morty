@@ -14,10 +14,26 @@ class _HomePageState extends State<HomePage> {
   final store = HomeStore();
   bool isGrid = false;
 
+  final scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
     store.loadCharacters();
+    scrollController.addListener(scrollListener);
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  void scrollListener() {
+    if (scrollController.offset >= scrollController.position.maxScrollExtent &&
+        !scrollController.position.outOfRange) {
+      store.loadCharacters();
+    }
   }
 
   @override
@@ -84,8 +100,14 @@ class _HomePageState extends State<HomePage> {
               SizedBox(height: 20),
               Expanded(
                 child: isGrid
-                    ? GridViewCards(store: store)
-                    : ListViewCards(store: store),
+                    ? GridViewCards(
+                        store: store,
+                        scrollController: scrollController,
+                      )
+                    : ListViewCards(
+                        store: store,
+                        scrollController: scrollController,
+                      ),
               ),
             ],
           ),

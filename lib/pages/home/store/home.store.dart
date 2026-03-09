@@ -27,7 +27,11 @@ abstract class HomeStoreBase with Store {
 
     final characterResponse = await _service.loadCharacters(page: page);
 
-    page += 1;
+    if (page == 42) {
+      return;
+    } else {
+      page += 1;
+    }
     character.addAll(characterResponse.results);
 
     isLoading = false;

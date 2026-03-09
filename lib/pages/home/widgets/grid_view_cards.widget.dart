@@ -5,14 +5,20 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 
 class GridViewCards extends StatelessWidget {
   final HomeStore store;
+  final ScrollController scrollController;
 
-  const GridViewCards({super.key, required this.store});
+  const GridViewCards({
+    super.key,
+    required this.store,
+    required this.scrollController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Observer(
       builder: (_) {
         return GridView.builder(
+          controller: scrollController,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 2,
