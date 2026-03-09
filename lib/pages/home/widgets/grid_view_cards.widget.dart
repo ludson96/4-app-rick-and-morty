@@ -15,10 +15,9 @@ class GridViewCards extends StatelessWidget {
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            childAspectRatio:
-                0.75, // Ajuste conforme necessário para a altura do card
+            mainAxisSpacing: 2,
+            crossAxisSpacing: 2,
+            childAspectRatio: 0.70,
           ),
           itemCount: store.character.length,
           itemBuilder: (ctx, index) {

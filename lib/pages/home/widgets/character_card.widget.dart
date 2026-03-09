@@ -53,23 +53,19 @@ class _CharacterCardState extends State<CharacterCard> {
       color: character.color,
       child: widget.isGrid
           ? Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Expanded(
-                  child: Image.network(character.image, fit: BoxFit.cover),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    character.name,
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: primaryColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                Text("${character.id}"),
+                Image.network(character.image, height: 130, width: 130),
+                Text(
+                  character.name,
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: primaryColor,
+                    fontWeight: FontWeight.w500,
                   ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             )
@@ -129,7 +125,10 @@ class _CharacterCardState extends State<CharacterCard> {
                           alignment: Alignment.centerRight,
                           child: Text(
                             "${character.id}",
-                            style: const TextStyle(fontSize: 16),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: primaryColor,
+                            ),
                           ),
                         ),
                       ],
