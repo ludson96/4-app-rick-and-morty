@@ -26,7 +26,6 @@ abstract class HomeStoreBase with Store {
 
   @computed
   List<Character> get filteredCharacters {
-    print("Fui executado");
     if (search == null) return character.toList();
 
     return character

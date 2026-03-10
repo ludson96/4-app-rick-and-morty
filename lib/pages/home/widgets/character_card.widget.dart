@@ -1,5 +1,6 @@
 import 'package:app_rich_and_morty/colors.dart';
 import 'package:app_rich_and_morty/models/character.model.dart';
+import 'package:app_rich_and_morty/pages/detailsCharacter/details_character.page.dart';
 import 'package:app_rich_and_morty/pages/home/store/home.store.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -49,44 +50,22 @@ class _CharacterCardState extends State<CharacterCard> {
   Widget build(BuildContext context) {
     final character = widget.character;
 
-    return Card(
-      elevation: 10,
-      color: character.color,
-      child: widget.isGrid
-          ? AnimatedContainer(
-              duration: const Duration(milliseconds: 500),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Text("${character.id}"),
-                  Hero(
-                    tag: ValueKey(character.id),
-                    child: CachedNetworkImage(
-                      imageUrl: character.image,
-                      height: 130,
-                      width: 130,
-                    ),
-                  ),
-                  Text(
-                    character.name,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: primaryColor,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
-              ),
-            )
-          : Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: AnimatedContainer(
+    return InkWell(
+      onTap: () {
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (ctx) => DetailsCharacterPage(character: character,)));
+      },
+      child: Card(
+        elevation: 10,
+        color: character.color,
+        child: widget.isGrid
+            ? AnimatedContainer(
                 duration: const Duration(milliseconds: 500),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Text("${character.id}"),
                     Hero(
                       tag: ValueKey(character.id),
                       child: CachedNetworkImage(
@@ -95,68 +74,100 @@ class _CharacterCardState extends State<CharacterCard> {
                         width: 130,
                       ),
                     ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            character.name,
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: primaryColor,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            children: [
-                              Container(
-                                height: 15,
-                                width: 15,
-                                decoration: BoxDecoration(
-                                  color: character.status == "Alive"
-                                      ? Colors.green
-                                      : Colors.red,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              const SizedBox(width: 5),
-                              Expanded(
-                                child: Text(
-                                  "${character.status} - ${character.species}",
-                                  style: TextStyle(
-                                    color: primaryColor,
-                                    fontSize: 16,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            character.gender,
-                            style: TextStyle(color: primaryColor, fontSize: 16),
-                          ),
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: Text(
-                              "${character.id}",
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: primaryColor,
-                              ),
-                            ),
-                          ),
-                        ],
+                    Text(
+                      character.name,
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: primaryColor,
+                        fontWeight: FontWeight.w500,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 500),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Hero(
+                        tag: ValueKey(character.id),
+                        child: CachedNetworkImage(
+                          imageUrl: character.image,
+                          height: 130,
+                          width: 130,
+                        ),
+                      ),
+                      const SizedBox(width: 20),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              character.name,
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: primaryColor,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                Container(
+                                  height: 15,
+                                  width: 15,
+                                  decoration: BoxDecoration(
+                                    color: character.status == "Alive"
+                                        ? Colors.green
+                                        : Colors.red,
+                                    shape: BoxShape.circle,
+                                  ),
+                                ),
+                                const SizedBox(width: 5),
+                                Expanded(
+                                  child: Text(
+                                    "${character.status} - ${character.species}",
+                                    style: TextStyle(
+                                      color: primaryColor,
+                                      fontSize: 16,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              character.gender,
+                              style: TextStyle(
+                                color: primaryColor,
+                                fontSize: 16,
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: Text(
+                                "${character.id}",
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  color: primaryColor,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
+      ),
     );
   }
 }
