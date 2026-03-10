@@ -22,6 +22,7 @@ class DetailsCharacterPage extends StatelessWidget {
               background: Hero(
                 tag: ValueKey(character.id),
                 child: CachedNetworkImage(
+                  key: Key("imageDetails"),
                   imageUrl: character.image,
                   fit: BoxFit.cover,
                 ),

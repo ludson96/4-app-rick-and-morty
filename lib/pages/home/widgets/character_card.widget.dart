@@ -51,10 +51,13 @@ class _CharacterCardState extends State<CharacterCard> {
     final character = widget.character;
 
     return InkWell(
+      key: widget.isGrid ? const Key("gridCard") : const Key("listCard"),
       onTap: () {
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (ctx) => DetailsCharacterPage(character: character,)));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (ctx) => DetailsCharacterPage(character: character),
+          ),
+        );
       },
       child: Card(
         elevation: 10,
@@ -69,6 +72,7 @@ class _CharacterCardState extends State<CharacterCard> {
                     Hero(
                       tag: ValueKey(character.id),
                       child: CachedNetworkImage(
+                        key: const Key("imageGridCard"),
                         imageUrl: character.image,
                         height: 130,
                         width: 130,
@@ -97,6 +101,7 @@ class _CharacterCardState extends State<CharacterCard> {
                       Hero(
                         tag: ValueKey(character.id),
                         child: CachedNetworkImage(
+                          key: const Key("imageListCard"),
                           imageUrl: character.image,
                           height: 130,
                           width: 130,

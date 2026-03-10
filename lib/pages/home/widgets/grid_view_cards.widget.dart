@@ -18,6 +18,7 @@ class GridViewCards extends StatelessWidget {
     return Observer(
       builder: (_) {
         return GridView.builder(
+          key: Key("gridView"),
           controller: scrollController,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,

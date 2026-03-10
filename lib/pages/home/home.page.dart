@@ -71,6 +71,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(height: 20),
               TextField(
+                key: Key("Filtro"),
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search, color: Colors.grey),
                   hintText: "Nome ou identificador",

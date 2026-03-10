@@ -18,6 +18,7 @@ class ListViewCards extends StatelessWidget {
     return Observer(
       builder: (_) {
         return ListView.builder(
+          key: Key("listView"),
           controller: scrollController,
           itemCount: store.filteredCharacters.length,
           itemBuilder: (ctx, index) {
